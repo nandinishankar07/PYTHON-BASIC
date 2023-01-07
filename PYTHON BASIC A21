@@ -1,0 +1,159 @@
+
+Assignment 21 Solutions
+1. Add the current date to the text file today.txt as a string.
+In [1]:
+import datetime
+# Code to Add current date to the today.txt file
+file = open('today.txt','w')
+file.write(datetime.datetime.now().strftime("%d-%m-%Y"))
+file.close()
+# Code to Read current date from today.txt file
+file = open('today.txt','r')
+print(file.read())
+file.close()
+22-09-2021
+2. Read the text file today.txt into the string today_string
+In [2]:
+file = open('today.txt','r')
+today_string = file.read()
+print(today_string)
+22-09-2021
+3. Parse the date from today_string.
+In [3]:
+from datetime import datetime
+parsed_data = datetime.strptime(today_string, '%d-%m-%Y')
+print(parsed_data)
+2021-09-22 00:00:00
+4. List the files in your current directory
+In [4]:
+import os
+for folders, subfolders, files in os.walk(os.getcwd()):
+    for file in files:
+        print(file)
+01.Assignment_01.ipynb
+02.Assignment_02.ipynb
+03.Assignment_03.ipynb
+04.Assignment_04.ipynb
+05.Assignment_05.ipynb
+06.Assignment_06.ipynb
+07.Assignment_07.ipynb
+08.Assignment_08.ipynb
+09.Assignment_09.ipynb
+10.Assignment_10.ipynb
+11.Assignment_11.ipynb
+12.Assignment_12.ipynb
+13.Assignment_13.ipynb
+14.Assignment_14.ipynb
+15.Assignment_15.ipynb
+16.Assignment_16.ipynb
+17.Assignment_17.ipynb
+18.Assignment_18.ipynb
+19.Assignment_19.ipynb
+20.Assignment_20.ipynb
+21.Assignment_21.ipynb
+22.Assignment_22.ipynb
+23.Assignment_23.ipynb
+24.Assignment_24.ipynb
+25.Assignment_25.ipynb
+today.txt
+21.Assignment_21-checkpoint.ipynb
+22.Assignment_22-checkpoint.ipynb
+23.Assignment_23-checkpoint.ipynb
+24.Assignment_24-checkpoint.ipynb
+25.Assignment_25-checkpoint.ipynb
+5. Create a list of all of the files in your parent directory (minimum five files should be available).
+In [5]:
+import os 
+os.listdir()
+Out[5]:
+['.ipynb_checkpoints',
+ '01.Assignment_01.ipynb',
+ '02.Assignment_02.ipynb',
+ '03.Assignment_03.ipynb',
+ '04.Assignment_04.ipynb',
+ '05.Assignment_05.ipynb',
+ '06.Assignment_06.ipynb',
+ '07.Assignment_07.ipynb',
+ '08.Assignment_08.ipynb',
+ '09.Assignment_09.ipynb',
+ '10.Assignment_10.ipynb',
+ '11.Assignment_11.ipynb',
+ '12.Assignment_12.ipynb',
+ '13.Assignment_13.ipynb',
+ '14.Assignment_14.ipynb',
+ '15.Assignment_15.ipynb',
+ '16.Assignment_16.ipynb',
+ '17.Assignment_17.ipynb',
+ '18.Assignment_18.ipynb',
+ '19.Assignment_19.ipynb',
+ '20.Assignment_20.ipynb',
+ '21.Assignment_21.ipynb',
+ '22.Assignment_22.ipynb',
+ '23.Assignment_23.ipynb',
+ '24.Assignment_24.ipynb',
+ '25.Assignment_25.ipynb',
+ 'today.txt']
+6. Use multiprocessing to create three separate processes. Make each one wait a random number of seconds between one and five, print the current time, and then exit.
+In [6]:
+import multiprocessing
+import time 
+import random
+import datetime
+
+def procOne():
+    print(f'Proc_one_Starttime -> {datetime.datetime.now()}')
+    time.sleep(random.randint(1,5))
+    print(f'Proc_one_Endtime -> {datetime.datetime.now()}')
+    
+def procTwo():
+    print(f'Proc_two_Starttime -> {datetime.datetime.now()}')
+    time.sleep(random.randint(1,5))
+    print(f'Proc_two_Endtime -> {datetime.datetime.now()}')
+
+def procThree():
+    print(f'Proc_two_Starttime -> {datetime.datetime.now()}')
+    time.sleep(random.randint(1,5))
+    print(f'Proc_two_Endtime -> {datetime.datetime.now()}')
+    
+if __name__ == "__main__":    
+    p1 = multiprocessing.Process(target=procOne)
+    p2 = multiprocessing.Process(target=procTwo)
+    p3 = multiprocessing.Process(target=procThree)
+
+    p1.start()
+    p2.start()
+    p3.start()
+
+    p1.join()
+    p2.join()
+    p3.join()
+Due to some unknown reason. the above did not print any results in the jupyter cell. so i copied the code to a python file. executed it and pasted the ouput here
+(base) C:\Users\vishnu.adepu\Desktop>python es_poc.py
+Proc_one_Starttime -> 2021-09-22 18:41:59.354061
+Proc_two_Starttime -> 2021-09-22 18:41:59.363712
+Proc_two_Starttime -> 2021-09-22 18:41:59.367238
+Proc_two_Endtime -> 2021-09-22 18:42:04.369860
+Proc_two_Endtime -> 2021-09-22 18:42:04.369860
+Proc_one_Endtime -> 2021-09-22 18:42:04.369860
+
+7. Create a date object of your day of birth.
+In [7]:
+from datetime import datetime
+my_dob = datetime.strptime('22/04/1997','%d/%m/%Y')
+print(my_dob, type(my_dob))
+1997-04-22 00:00:00 <class 'datetime.datetime'>
+8. What day of the week was your day of birth?
+In [8]:
+from datetime import datetime
+my_dob = datetime(1997,4,22)
+my_dob.strftime("%A")
+Out[8]:
+'Tuesday'
+9. When will you be (or when were you) 10,000 days old?
+In [9]:
+from datetime import datetime, timedelta
+my_dob = datetime.strptime("22/04/1997",'%d/%m/%Y')
+future_date = my_dob-timedelta(10000)
+future_date
+Out[9]:
+datetime.datetime(1969, 12, 5, 0, 0)
